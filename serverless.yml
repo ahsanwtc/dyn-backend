@@ -10,6 +10,9 @@ provider:
   profile: iamahsandev
   apiGateway:
     shouldStartNameWithService: true
+  environment:
+    USER_POOL_ID: { Ref: UserPool }
+    USER_POOL_CLIENT_ID: { Ref: UserClient }
   iam:
     role:
       statements:
@@ -36,5 +39,7 @@ functions:
 resources:
   # S3
   - ${file(resources/s3-bucket.yml)}
+  # Cognito
+  - ${file(resources/cognito.yml)}
   # DynamoDB
   #- ${file(resources/dynamodb.yml)}
