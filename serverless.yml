@@ -56,7 +56,7 @@ functions:
     events:
       - http:
           path: user/profile
-          method: POST
+          method: GET
           cors: true
           authorizer:
             type: COGNITO_USER_POOLS
