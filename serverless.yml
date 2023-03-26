@@ -28,11 +28,26 @@ custom:
 
 
 functions:
-  function1:
-    handler: index.handler
+  login:
+    handler: functions/login.handler
+    description: Function for handling user logins.
     events:
       - http:
-          path: user
+          path: user/login
+          method: POST
+  register:
+    handler: functions/register.handler
+    description: Function for creating new users.
+    events:
+      - http:
+          path: user/register
+          method: POST
+  profile:
+    handler: functions/profile.handler
+    description: Get authenticated user's profile.
+    events:
+      - http:
+          path: user/profile
           method: GET
 
 
