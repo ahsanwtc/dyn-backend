@@ -1,0 +1,40 @@
+service: dyn-backend
+frameworkVersion: '3'
+
+# plugins:
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: eu-central-1
+  profile: iamahsandev
+  apiGateway:
+    shouldStartNameWithService: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - lambda:InvokeFunction
+          Resource: "*"
+
+
+custom:
+  bucketName: www.dyn.iamahsan.dev
+  HostedZoneId: 'Z085775936KQNY3CN8AWD'
+
+
+functions:
+  function1:
+    handler: index.handler
+    events:
+      - http:
+          path: user
+          method: GET
+
+
+resources:
+  # S3
+  - ${file(resources/s3-bucket.yml)}
+  # DynamoDB
+  #- ${file(resources/dynamodb.yml)}
