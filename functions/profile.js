@@ -1,13 +1,5 @@
+const { sendResponse } = require('../util');
+
 module.exports.handler = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'PROFILE',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
+  return sendResponse(200, { message: `Email ${event.requestContext.authorizer.claims.email} has been authorized` })
 };

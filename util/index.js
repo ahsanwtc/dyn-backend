@@ -1,11 +1,19 @@
-module.exports.validateInput = data => {
+module.exports.validateInput = (data, mode = 'login') => {
   const { email, password, favouriteTeam } = data;
 
-  if (!email || !password || !favouriteTeam) {
-    return false;  
+  if (mode === 'register') {
+    if (!email || !password || !favouriteTeam) {
+      return false;  
+    }
   }
 
-  return true
+  if (mode === 'login') {
+    if (!email || !password) {
+      return false;  
+    }
+  }  
+
+  return true;
 };
 
 module.exports.sendResponse = (statusCode, body) => {

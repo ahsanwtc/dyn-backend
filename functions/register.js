@@ -8,7 +8,7 @@ module.exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
 
-    const isValid = validateInput(data);
+    const isValid = validateInput(data, 'register');
     if (!isValid) {
       return sendResponse(400, { message: 'Invalid input' });
     }
