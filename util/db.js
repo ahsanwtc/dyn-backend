@@ -21,3 +21,27 @@ module.exports.create = async data => {
   }
 
 };
+
+module.exports.get = async email => {
+  
+  const params = {
+    Key: {
+      email: { S: email },
+    },
+    TableName: process.env.USER_TABLE
+  };
+
+  try {
+    const db = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+    const response = await db.getItem(params).promise();
+    if (response && response.Item) {
+      return { email, favouriteTeam: response.Item.favouriteTeam.S };
+    }
+
+    return null;
+  } catch (error) {
+    console.log("Error", error);
+  }
+
+  return null;
+};
