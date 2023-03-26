@@ -42,4 +42,4 @@ resources:
   # Cognito
   - ${file(resources/cognito.yml)}
   # DynamoDB
-  #- ${file(resources/dynamodb.yml)}
+  - ${file(resources/dynamodb.yml)}
