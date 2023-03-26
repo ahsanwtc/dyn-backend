@@ -2,7 +2,7 @@ Resources:
   UserTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: dyn-users-table
+      TableName: ${self:custom.dynamodb}
       AttributeDefinitions:
         - AttributeName: email
           AttributeType: S

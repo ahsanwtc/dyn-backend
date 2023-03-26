@@ -13,6 +13,7 @@ provider:
   environment:
     USER_POOL_ID: { Ref: UserPool }
     USER_POOL_CLIENT_ID: { Ref: UserClient }
+    USER_TABLE: ${self:custom.dynamodb}
   iam:
     role:
       statements:
@@ -26,11 +27,17 @@ provider:
             - cognito-idp:AdminCreateUser
             - cognito-idp:AdminSetUserPassword
           Resource: "*"
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+          Resource: "arn:aws:dynamodb:eu-central-1:*:table/${self:custom.dynamodb}"
 
 
 custom:
   bucketName: www.dyn.iamahsan.dev
   HostedZoneId: 'Z085775936KQNY3CN8AWD'
+  dynamodb: dyn-users-table
 
 
 functions:
