@@ -3,6 +3,7 @@ Resources:
     Type: AWS::Cognito::UserPool
     Properties:
       UserPoolName: dyn-auth-pool
+      MfaConfiguration: OFF
       Schema:
         - Name: email
           Required: true
@@ -15,10 +16,23 @@ Resources:
   UserClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
-      ClientName: user-pool-ui
+      ClientName: dyn-user-pool
       GenerateSecret: false
-      UserPoolId: { Ref: UserPool }
+      UserPoolId: 
+        Ref: UserPool
       AccessTokenValidity: 5
       IdTokenValidity: 5
       ExplicitAuthFlows:
         - "ADMIN_NO_SRP_AUTH"
+  ApiGatewayAuthorizer:
+    DependsOn:
+      - ApiGatewayRestApi
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      Name: cognito-authorizer
+      IdentitySource: method.request.header.Authorization
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      Type: COGNITO_USER_POOLS
+      ProviderARNs:
+        - Fn::GetAtt: [UserPool, Arn]

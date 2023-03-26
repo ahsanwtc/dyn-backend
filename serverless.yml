@@ -41,6 +41,7 @@ functions:
       - http:
           path: user/login
           method: POST
+          cors: true
   register:
     handler: functions/register.handler
     description: Function for creating new users.
@@ -48,14 +49,25 @@ functions:
       - http:
           path: user/register
           method: POST
+          cors: true
   profile:
     handler: functions/profile.handler
     description: Get authenticated user's profile.
     events:
       - http:
           path: user/profile
-          method: GET
-
+          method: POST
+          cors: true
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
+            claims:
+              - email
 
 resources:
   # S3
