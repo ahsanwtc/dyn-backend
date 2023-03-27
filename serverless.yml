@@ -7,7 +7,7 @@ provider:
   name: aws
   runtime: nodejs16.x
   region: eu-central-1
-  profile: iamahsandev
+  # profile: iamahsandev
   apiGateway:
     shouldStartNameWithService: true
   environment:
