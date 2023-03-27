@@ -21,9 +21,11 @@ module.exports.sendResponse = (statusCode, body) => {
     statusCode,
     body: JSON.stringify(body),
     headers: {
+      'Access-Control-Allow-Headers' : 'Content-Type,Authorization',
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
     }
   };
 };
